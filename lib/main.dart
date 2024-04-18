@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         themeMode: ThemeMode.light,
         theme: CustomTheme.light,
         debugShowCheckedModeBanner: false,
-        home: const AuthFactor2(),
+        home: LoginScreen(),
       ),
     );
   }

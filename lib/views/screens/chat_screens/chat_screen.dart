@@ -99,7 +99,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                   document.data()! as Map<String, dynamic>;
                               return MessageBubble(
                                 message: data['txt'],
-                                itsMe: true,
+                                itsMe: loggeduser!.email == data['sender'],
                                 sender: data['sender'],
                               );
                             })
