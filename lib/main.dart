@@ -4,11 +4,9 @@ import 'package:chat_app_template/firebase_options.dart';
 import 'package:chat_app_template/services/constants.dart';
 import 'package:chat_app_template/services/init.dart';
 import 'package:chat_app_template/services/theme.dart';
-import 'package:chat_app_template/views/screens/auth_screens/login_screen.dart';
 import 'package:chat_app_template/views/screens/auth_screens/two_factor_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

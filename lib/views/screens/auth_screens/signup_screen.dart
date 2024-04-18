@@ -5,6 +5,8 @@ import 'package:chat_app_template/views/base/custom_image.dart';
 import 'package:chat_app_template/views/screens/chat_screens/chat_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registrationScreen';
@@ -15,6 +17,7 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   String email = "";
   String password = "";
+  String name = "";
   bool showSpinner = false;
   final _auth = FirebaseAuth.instance;
 
@@ -29,10 +32,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const Flexible(
-              child: CustomImage(path: Assets.imagesLogo),
+              child: CustomImage(path: Assets.imageAuth),
             ),
             const SizedBox(
               height: 48.0,
+            ),
+            TextField(
+              textAlign: TextAlign.center,
+              onChanged: (value) {
+                name = value;
+              },
+              decoration: ChatDecorations.kTextfieldDecoration.copyWith(
+                hintText: 'Enter your name',
+              ),
+            ),
+            const SizedBox(
+              height: 8.0,
             ),
             TextField(
               textAlign: TextAlign.center,
@@ -72,8 +87,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     email: email,
                     password: password,
                   );
-                  Navigator.push(
-                      context, getCustomRoute(child: const ChatScreen()));
+
+                  var sharedPreferences = Get.find<SharedPreferences>();
+                  sharedPreferences.setString('name', name.trim());
+
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    getCustomRoute(child: ChatScreen()),
+                    (route) => false,
+                  );
 
                   setState(() {
                     showSpinner = false;

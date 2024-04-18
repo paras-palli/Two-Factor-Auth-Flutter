@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const Flexible(
-              child: CustomImage(path: Assets.imagesLogo),
+              child: CustomImage(path: Assets.imageAuth),
             ),
             const SizedBox(
               height: 48.0,

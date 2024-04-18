@@ -6,9 +6,9 @@ import 'package:chat_app_template/views/screens/chat_screens/video_call.dart';
 import 'package:chat_app_template/views/screens/chat_screens/widgets/message_bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -19,11 +19,12 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _firestore = FirebaseFirestore.instance;
-
   final _auth = FirebaseAuth.instance;
-  User? loggeduser;
+  final sharedPreferences = Get.find<SharedPreferences>();
 
   final TextEditingController sendMsgControlller = TextEditingController();
+
+  User? loggeduser;
 
   @override
   void initState() {
@@ -100,7 +101,8 @@ class _ChatScreenState extends State<ChatScreen> {
                               return MessageBubble(
                                 message: data['txt'],
                                 itsMe: loggeduser!.email == data['sender'],
-                                sender: data['sender'],
+                                sender:
+                                    sharedPreferences.getString('name') ?? '',
                               );
                             })
                             .toList()
@@ -137,6 +139,8 @@ class _ChatScreenState extends State<ChatScreen> {
                               await _firestore.collection('msg').add({
                                 'txt': sendMsgControlller.text,
                                 'sender': loggeduser!.email,
+                                'senderName':
+                                    sharedPreferences.getString('name'),
                                 'Timestamp': FieldValue.serverTimestamp(),
                               });
                               sendMsgControlller.clear();
