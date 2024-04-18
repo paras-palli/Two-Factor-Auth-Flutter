@@ -1,4 +1,3 @@
-import 'package:chat_app_template/services/extensions.dart';
 import 'package:chat_app_template/services/input_decoration.dart';
 import 'package:chat_app_template/services/route_helper.dart';
 import 'package:chat_app_template/views/base/common_button.dart';
@@ -88,7 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   SharedPreferences localStorage =
                       await SharedPreferences.getInstance();
-                  localStorage.setString('email', emailController.text) ?? '';
+                  localStorage.setString('email', emailController.text);
+                  passwordController.clear();
 
                   Navigator.push(
                       context, getCustomRoute(child: const ChatScreen()));
