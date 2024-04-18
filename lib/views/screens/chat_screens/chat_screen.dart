@@ -101,8 +101,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               return MessageBubble(
                                 message: data['txt'],
                                 itsMe: loggeduser!.email == data['sender'],
-                                sender:
-                                    sharedPreferences.getString('name') ?? '',
+                                sender: loggeduser!.displayName.toString(),
                               );
                             })
                             .toList()
@@ -139,8 +138,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               await _firestore.collection('msg').add({
                                 'txt': sendMsgControlller.text,
                                 'sender': loggeduser!.email,
-                                'senderName':
-                                    sharedPreferences.getString('name'),
+                                'senderName': loggeduser!.displayName!,
                                 'Timestamp': FieldValue.serverTimestamp(),
                               });
                               sendMsgControlller.clear();
